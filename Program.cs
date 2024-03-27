@@ -12,7 +12,11 @@ for (int i = 0; i < vetorElementos.Length; i++)
     vetorElementos[i] = new Elemento(elemento, prioridade);
 }
 
-vetorElementos.HeapSort();
+vetorElementos.ConstroiHeap();
 HeapVetor.PrintHeap(vetorElementos);
+
+
+vetorElementos.HeapSort();
+Console.WriteLine(string.Join(", ", vetorElementos.Select(x => x.Prioridade)));
 
 //Console.Write(heap.ToString());

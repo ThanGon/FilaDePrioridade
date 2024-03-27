@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Net.Http.Headers;
-
-namespace FilaDePrioridade;
+﻿namespace FilaDePrioridade;
 
 public static class HeapVetor
 {
 
-    private static void ConstroiHeap(this Elemento[] vetor)
+    public static void ConstroiHeap(this Elemento[] vetor)
     {
-        for (int i = TamanhoHeap(vetor) / 2 - 1; i == 0; i--)
+        for (int i = TamanhoHeap(vetor) / 2 - 1; i >= 0; i--)
         {
-            Heapify(vetor, i);
+            Heapify(vetor, TamanhoHeap(vetor), i);
         }
     }
 
@@ -22,7 +19,7 @@ public static class HeapVetor
             Elemento temp = vetor[0];
             vetor[0] = vetor[i];
             vetor[i] = temp;
-            Heapify(vetor, i);
+            Heapify(vetor, i, 0);
         }
     }
 
@@ -34,21 +31,21 @@ public static class HeapVetor
 
     private static int TamanhoHeap(Elemento[] vetor) => vetor.Length;
 
-    private static void Heapify(this Elemento[] vetor, int i)
+    private static void Heapify(this Elemento[] vetor, int tamanhoVetor, int i)
     {
         int esq = FilhoEsquerda(i);
         int dir = FilhoDireita(i);
         int maior = i;
-        if (esq < TamanhoHeap(vetor) && vetor[esq].Prioridade > vetor[maior].Prioridade)
+        if (esq < tamanhoVetor && vetor[esq].Prioridade > vetor[maior].Prioridade)
             maior = esq;
-        if (dir < TamanhoHeap(vetor) && vetor[dir].Prioridade > vetor[maior].Prioridade)
+        if (dir < tamanhoVetor && vetor[dir].Prioridade > vetor[maior].Prioridade)
             maior = dir;
         if (maior != i)
         {
             Elemento temp = vetor[i];
             vetor[i] = vetor[maior];
             vetor[maior] = temp;
-            Heapify(vetor, maior);
+            Heapify(vetor, tamanhoVetor, maior);
         }
     }
 
@@ -61,7 +58,7 @@ public static class HeapVetor
         vetor[0] = vetor[TamanhoHeap(vetor)];
         vetor[TamanhoHeap(vetor)] = null;
 
-        Heapify(vetor, 0);
+        Heapify(vetor, TamanhoHeap(vetor), 0);
         return max;
     }
 
@@ -99,8 +96,8 @@ public class Elemento
 
     public Elemento(int valor, int prioridade)
     {
-        this.Valor = valor;
-        this.Prioridade = prioridade;
+        Valor = valor;
+        Prioridade = prioridade;
     }
 
     public override string ToString()
