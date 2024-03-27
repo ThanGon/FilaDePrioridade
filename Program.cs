@@ -1,18 +1,18 @@
 ﻿using FilaDePrioridade;
 
-Heap heap = new Heap(10);
+Console.WriteLine("Quantos elementos serao inseridos na fila?");
+Elemento[] vetorElementos = new Elemento[int.Parse(Console.ReadLine())];
 
-Console.WriteLine("Inserindo elementos na fila de prioridade...");
-
-while (true)
+for (int i = 0; i < vetorElementos.Length; i++)
 {
     Console.WriteLine("Digite o elemento a ser inserido:");
     int elemento = int.Parse(Console.ReadLine());
     Console.WriteLine("Digite a prioridade do elemento:");
     int prioridade = int.Parse(Console.ReadLine());
-    heap.Inserir(elemento, prioridade);
-    Console.WriteLine("Elemento inserido com sucesso!");
-    Console.WriteLine("Deseja inserir outro elemento? (s/n)");
-    if (Console.ReadLine().ToLower() == "n")
-        break;
+    vetorElementos[i] = new Elemento(elemento, prioridade);
 }
+
+vetorElementos.HeapSort();
+HeapVetor.PrintHeap(vetorElementos);
+
+//Console.Write(heap.ToString());
