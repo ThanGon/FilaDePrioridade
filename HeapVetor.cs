@@ -6,9 +6,9 @@ namespace FilaDePrioridade;
 public static class HeapVetor
 {
 
-    public static void ConstroiHeap(this Elemento[] vetor)
+    private static void ConstroiHeap(this Elemento[] vetor)
     {
-        for (int i = TamanhoVetor(vetor) / 2; i >= 1; i--)
+        for (int i = TamanhoHeap(vetor) / 2 - 1; i == 0; i--)
         {
             Heapify(vetor, i);
         }
@@ -17,7 +17,7 @@ public static class HeapVetor
     public static void HeapSort(this Elemento[] vetor)
     {
         ConstroiHeap(vetor); 
-        for (int i = TamanhoHeap(vetor); i > 1; i--)
+        for (int i = TamanhoHeap(vetor) - 1; i > 0; i--)
         {
             Elemento temp = vetor[0];
             vetor[0] = vetor[i];
@@ -32,31 +32,16 @@ public static class HeapVetor
 
     private static int FilhoDireita(int i) => 2 * i + 2;
 
-    private static int TamanhoHeap(Elemento[] vetor) => vetor.Count();
-    private static int TamanhoVetor(Elemento[] vetor) => vetor.Length;
-
-    public static void Inserir(this Elemento[] vetor, Elemento elemento)
-    {
-        if (TamanhoHeap(vetor) == TamanhoVetor(vetor))
-            throw new Exception("Heap cheio");
-
-        int i = TamanhoHeap(vetor);
-        while (i > 0 && elemento.Prioridade > vetor[i].Prioridade)
-        {
-            vetor[i] = vetor[Pai(i)];
-            i = Pai(i); 
-        }
-        vetor[i] = elemento;
-    }
+    private static int TamanhoHeap(Elemento[] vetor) => vetor.Length;
 
     private static void Heapify(this Elemento[] vetor, int i)
     {
         int esq = FilhoEsquerda(i);
         int dir = FilhoDireita(i);
         int maior = i;
-        if (esq <= TamanhoHeap(vetor) && vetor[esq].Prioridade > vetor[i].Prioridade)
+        if (esq < TamanhoHeap(vetor) && vetor[esq].Prioridade > vetor[maior].Prioridade)
             maior = esq;
-        if (dir <= TamanhoHeap(vetor) && vetor[dir].Prioridade > vetor[maior].Prioridade)
+        if (dir < TamanhoHeap(vetor) && vetor[dir].Prioridade > vetor[maior].Prioridade)
             maior = dir;
         if (maior != i)
         {
@@ -83,7 +68,7 @@ public static class HeapVetor
     public static void PrintHeap(Elemento[] heap)
     {
         int maxLevel = NivelRaiz(heap.Length);
-        for (int level = 1; level <= maxLevel; level++)
+        for (int level = 0; level <= maxLevel; level++)
         {
             int nodes = (int)Math.Pow(2, level);
             string spacing = new string(' ', (int)Math.Pow(2, maxLevel - level) - 1);
