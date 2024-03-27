@@ -103,7 +103,7 @@ public static class HeapVetor
 
     private static int NivelRaiz(int n)
     {
-        return (int)Math.Ceiling(Math.Log(n + 1, 2)) - 1;
+        return (int)Math.Ceiling(Math.Log(n, 2));
     }
 }
 

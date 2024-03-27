@@ -1,9 +1,9 @@
 ﻿using FilaDePrioridade;
 
 Console.WriteLine("Quantos elementos serao inseridos na fila?");
-Elemento[] vetorElementos = new Elemento[int.Parse(Console.ReadLine())];
+Elemento[] vetorElementos = new Elemento[int.Parse(Console.ReadLine()) + 1];
 
-for (int i = 0; i < vetorElementos.Length; i++)
+for (int i = 1; i < vetorElementos.Length; i++)
 {
     Console.WriteLine("Digite o elemento a ser inserido:");
     int elemento = int.Parse(Console.ReadLine());
